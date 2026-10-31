@@ -2,7 +2,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #f5eded;
+  --foreground: #8931d1;
 }
 
 @theme inline {
@@ -20,7 +20,8 @@
 }
 
 body {
-  background: white;
+  background: rgb(4, 4, 4);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
