@@ -1,6 +1,6 @@
 .purpleName {
   
-  color: #4e1b7f;
+  color: #7335ad;
 }
 
 .profilePicture {
@@ -9,7 +9,7 @@
   height: 128px;
   flex-shrink: 0;
   margin-bottom: 32px;
-  border: 4px solid #2563eb;
+  border: 4px solid #f3f4f7;
   border-radius: 50%;
   object-fit: cover;
 }
