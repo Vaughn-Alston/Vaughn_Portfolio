@@ -1,5 +1,5 @@
 import Image from "next/image";
-import File from ".//projectexp"
+import File from "./api/projectexp"
 
 
 import heading from "./heading.module.css";
@@ -61,7 +61,7 @@ export default function Home() {
             </h1>
 
 
-            <File> </File>
+                <File></File>
 
 
             
