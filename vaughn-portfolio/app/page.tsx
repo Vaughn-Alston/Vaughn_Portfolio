@@ -1,6 +1,8 @@
 import Image from "next/image";
+import { connection } from "next/server";
 import LiveClock from "@/app/components/live-clock";
 import ProjectGrid from "@/app/components/project-grid";
+import { fetchTime } from "@/app/lib/time";
 
 // Profile destinations displayed in the sticky sidebar.
 const socialLinks = [
@@ -21,7 +23,20 @@ const socialLinks = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  await connection();
+  const datetime = await fetchTime();
+  const date = datetime ? new Date(datetime) : null;
+  const time = date && !Number.isNaN(date.getTime())
+    ? date.toLocaleTimeString("en-US", {
+        timeZone: "America/Los_Angeles",
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      }).split(/[:\s]+/)
+    : null;
+
   return (
     <div className="site-shell">
       {/* Sticky profile rail */}
@@ -56,7 +71,7 @@ export default function Home() {
           </p>
 
           {/* Live local time and contact details */}
-          <LiveClock />
+          <LiveClock initialTime={time} />
 
           {/* External profile links */}
           <div className="social-row" aria-label="Social profile shortcuts">
