@@ -1,42 +1,26 @@
 [
   {
     "id": 1,
-    "name": "Signal Desk",
-    "date": "2026",
-    "description": "A real-time operations dashboard that turns service health data into clear, actionable status updates.",
-    "image": "/images/window.svg",
-    "category": "Full Stack"
+    "name": "Impacts",
+    "date": "Date",
+    "description": "Add a concise description of the problem, your contribution, and the result.",
+    "image": null,
+    "href": "#"
   },
   {
     "id": 2,
-    "name": "Cloud Ledger",
-    "date": "2025",
-    "description": "A serverless cost explorer for reviewing cloud usage, budgets, and unusual spending patterns.",
-    "image": "/images/globe.svg",
-    "category": "Backend"
+    "name": "Star Gazing",
+    "date": "Date",
+    "description": "Add a concise description of the problem, your contribution, and the result.",
+    "image": null,
+    "href": "https://vaughn-alston.github.io/Vaughn_Alston-Star-Catalog/index.html"
   },
   {
     "id": 3,
-    "name": "Model Notes",
-    "date": "2025",
-    "description": "An LLM-assisted research workspace for organizing source material and comparing generated answers.",
-    "image": "/images/file.svg",
-    "category": "AI Integration"
-  },
-  {
-    "id": 4,
-    "name": "Launch Queue",
-    "date": "2024",
-    "description": "A focused release planner that keeps product milestones, ownership, and deployment tasks in one view.",
-    "image": "/images/next.svg",
-    "category": "Frontend"
-  },
-  {
-    "id": 5,
-    "name": "Edge Monitor",
-    "date": "2024",
-    "description": "A lightweight monitoring interface for inspecting edge requests, latency, and regional availability.",
-    "image": "/images/vercel.svg",
-    "category": "Cloud"
+    "name": "Ripple Effect",
+    "date": "Date",
+    "description": "Add a concise description of the problem, your contribution, and the result.",
+    "image": "/images/THERIPPLE.png",
+    "href": "https://devpost.com/software/the-ripple?ref_content=my-projects-tab&ref_feature=my_projects"
   }
 ]
