@@ -1,118 +1,91 @@
 import Image from "next/image";
+import { Suspense } from "react";
+import LiveClock from "@/app/components/live-clock";
+import LocalTime from "@/app/components/local-time";
+import ProofCard from "@/app/components/proof-card";
+import ProjectGrid from "@/app/components/project-grid";
+import { proofCategories } from "@/app/content/proof";
+import { site } from "@/app/content/site";
 
 export default function Home() {
- 
   return (
+    <main className="portfolio-shell" id="top">
+      <aside className="profile-rail" aria-label="Profile and contact information">
+        <a className="wordmark" href="#top" aria-label={`${site.name}, home`}>VA<span>✳</span></a>
 
-
-
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-
-
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-
-    {/* This will hold the profile picture which I want to be a circle */}
-        <Image
-          className="Profile Picture"
-          src="/images/Profile.svg"
-          alt="Profile Picture"
-          width={100}
-          height={20}
-          priority
-        />
-
-
-
-
-
-
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-
-
-          {/* First Text Section To get Started edit the Page.tsx file */}
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            My name is Vaughn {" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              Computer Science student at El Camino College with experience in Full-Stack-Development, 
-              AWS Cloud Services, and LLM Model Integration. Previously at Snap.Inc, Workz.inc,
-             
-            </code>{" "}
-            file.
-          </h1>
-
-
-
-          {/* Looking for A starting point section section */}
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-
-
-            {/* Start of a anchor Tag */}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-
-
-              Templates
-            </a>  {/* we intentionally put a space after ward */}
-            {" "} 
-            {/* End of a anchor Tag */}
-
-
-            or the{" "} {/* we intentionally put a space after ward */}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "} {/* we intentionally put a space after ward */}
-            center.
-          </p>
-
-
+        <div className="profile-picture">
+          <Image src="/images/Profile.svg" alt={`Portrait of ${site.name}`} fill priority sizes="260px" />
         </div>
-       
-       
-     
 
-        {/*Container Holding the buttons for Deploy and documentation  */}
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">  
-
-          {/* Deploy Now Button */}
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          {/* End of Button */}
-
-          {/* Documentation Button */}
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-          {/* End of Button */}
-
-
-
-
+        <div className="profile-heading">
+          <p>HELLO, I’M</p>
+          <h1>{site.name}</h1>
+          <span>{site.role}</span>
         </div>
-      </main>
-    </div>
+
+        <Suspense fallback={<LiveClock initialTime={null} />}>
+          <LocalTime />
+        </Suspense>
+
+        <div className="availability">
+          <span className="status-dot" aria-hidden="true" />
+          <p>{site.availability}</p>
+        </div>
+
+        <a className="email-link" href={site.email}>
+          <span>Email me</span>
+          <strong>Vaughnalston383@gmail.com</strong>
+          <span aria-hidden="true">↗</span>
+        </a>
+
+        <nav className="social-links" aria-label="Social links">
+          {site.socials.map((social) => (
+            <a key={social.label} href={social.href} target="_blank" rel="noreferrer" aria-label={`${social.label}, opens in a new tab`}>
+              <Image src={social.icon} width={18} height={18} alt="" aria-hidden="true" />
+              <span>{social.label}</span>
+            </a>
+          ))}
+        </nav>
+
+        <a className="resume-link" href={site.resume.href} target="_blank" rel="noreferrer" aria-label="Open Vaughn's resume in a new tab">
+          <Image src={site.resume.icon} width={202} height={47} alt="Resume download" />
+        </a>
+
+        <p className="profile-copyright">Copyright © Vaughn Alston</p>
+      </aside>
+
+      <section className="work-panel" aria-label="Portfolio work">
+        <header className="panel-header">
+          <a href="#expertise">Expertise</a>
+          <a href="#projects">Projects</a>
+          <a className="panel-contact" href={site.email}>Let’s work together <span aria-hidden="true">↗</span></a>
+        </header>
+
+        <div className="mission">
+          <p className="section-kicker">FULL-STACK ENGINEER · LOS ANGELES</p>
+          <h2>Building projects<br />with <span>impact.</span></h2>
+          <p className="mission-copy">{site.intro}</p>
+        </div>
+
+        <section className="expertise" id="expertise" aria-labelledby="expertise-title">
+          <div className="section-title-row">
+            <h3 id="expertise-title">What I build with</h3>
+          </div>
+          <div className="proof-grid">
+            {proofCategories.map((item, index) => <ProofCard key={item.title} item={item} index={index} />)}
+          </div>
+        </section>
+
+        <section className="projects" id="projects" aria-labelledby="projects-title">
+          <div className="section-title-row">
+            <div>
+              <h3 id="projects-title">Projects made with purpose.</h3>
+            </div>
+            <p>Scroll to see more <span aria-hidden="true">↓</span></p>
+          </div>
+          <ProjectGrid />
+        </section>
+      </section>
+    </main>
   );
 }

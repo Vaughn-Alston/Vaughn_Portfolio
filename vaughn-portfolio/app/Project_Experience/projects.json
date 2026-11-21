@@ -1,0 +1,75 @@
+[
+  {
+    "id": 1,
+    "name": "Impacts",
+    "description": "A project focused on creating meaningful impact.",
+    "image": "/images/Impact.png",
+    "originalDescription": "Add a concise description of the problem, your contribution, and the result.",
+    "imageAlt": "Impacts project visual",
+    "stack": [
+      "Impact",
+      "Project"
+    ],
+    "links": {
+      "demo": null,
+      "github": null,
+      "architecture": null,
+      "devpost": null
+    }
+  },
+  {
+    "id": 2,
+    "name": "Star Gazing",
+    "description": "An exploration of the night sky through an interactive star catalog.",
+    "image": "/images/Project2.png",
+    "originalDescription": "Add a concise description of the problem, your contribution, and the result.",
+    "imageAlt": "Star Gazing project visual",
+    "stack": [
+      "Web",
+      "Exploration"
+    ],
+    "links": {
+      "demo": "https://vaughn-alston.github.io/Vaughn_Alston-Star-Catalog/index.html",
+      "github": null,
+      "architecture": null,
+      "devpost": null
+    }
+  },
+  {
+    "id": 3,
+    "name": "Ripple Effect",
+    "description": "An idea built around the ripple effect of making a difference.",
+    "image": "/images/THERIPPLE.png",
+    "originalDescription": "Add a concise description of the problem, your contribution, and the result.",
+    "imageAlt": "Ripple Effect project visual",
+    "stack": [
+      "Hackathon",
+      "Impact"
+    ],
+    "links": {
+      "demo": null,
+      "github": null,
+      "architecture": null,
+      "devpost": "https://devpost.com/software/the-ripple?ref_content=my-projects-tab&ref_feature=my_projects"
+    }
+  },
+  {
+    "id": 4,
+    "name": "ThatBit",
+    "description": "The Expo mobile app currently lets a user attach a design document. The backend parser reads Markdown phase headings and task bullets into shared TypeScript data. AI, GitHub, databases, authentication, and agent workflows are future work and are intentionally not part of this reorganization.",
+    "image": "/images/Project.png",
+    "originalDescription": "The Expo mobile app currently lets a user attach a design document. The backend parser reads Markdown phase headings and task bullets into shared TypeScript data. AI, GitHub, databases, authentication, and agent workflows are future work and are intentionally not part of this reorganization.",
+    "imageAlt": "ThatBit project visual",
+    "stack": [
+      "Expo",
+      "TypeScript"
+    ],
+    "links": {
+      "demo": null,
+      "github": null,
+      "architecture": null,
+      "devpost": null
+    },
+    "previousHref": "https://devpost.com/software/the-ripple?ref_content=my-projects-tab&ref_feature=my_projects"
+  }
+]

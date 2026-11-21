@@ -1,5 +1,15 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Time API setup
+
+The timezone token stays on the server and is never sent to the browser.
+
+1. Copy `.env.example` to `.env.local` (a ready-to-fill `.env.local` is also included in this working copy).
+2. Paste the token after `TIMEZONE_API_TOKEN=` with no extra spaces.
+3. Restart the development server whenever `.env.local` changes.
+
+The portfolio calls `/api/time`, which reads `data.current.datetime` from timezone.io and returns both a `timeArray` (`[hour, minute, second, period]`) and named `values`. If the token is missing, expired, or the provider is unavailable, the clock continues using the browser time formatted for `America/Los_Angeles`.
+
 ## Getting Started
 
 First, run the development server:
