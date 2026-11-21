@@ -1,65 +1,63 @@
 import Image from "next/image";
-import projects from "@/app/data/projects.json";
+import projects from "@/app/Project_Experience/projects.json";
 
-// Shape shared by every entry in projects.json.
+type ProjectLink = "demo" | "github" | "architecture" | "devpost";
 type Project = {
   id: number;
   name: string;
-  date: string;
   description: string;
   image: string | null;
-  href: string;
+  imageAlt: string;
+  stack: string[];
+  links: Record<ProjectLink, string | null>;
 };
 
-// Displayed whenever a project does not have an image path yet.
-function ImagePlaceholder() {
+const linkLabels: Record<ProjectLink, { label: string; icon: string }> = {
+  demo: { label: "Live Demo", icon: "↗" },
+  github: { label: "GitHub", icon: "⌘" },
+  architecture: { label: "Architecture", icon: "◇" },
+  devpost: { label: "Dev Post", icon: "↗" },
+};
+
+export function ProjectTag({ href, label, icon }: { href: string; label: string; icon: string }) {
   return (
-    <svg
-      aria-hidden="true"
-      fill="none"
-      height="32"
-      viewBox="0 0 32 32"
-      width="32"
-    >
-      <rect height="22" rx="3" stroke="currentColor" width="26" x="3" y="5" />
-      <circle cx="11" cy="12" r="2.5" stroke="currentColor" />
-      <path d="m6 24 7-7 5 5 3-3 5 5" stroke="currentColor" />
-    </svg>
+    <a className="project-tag" href={href} target="_blank" rel="noreferrer">
+      {label}<span aria-hidden="true">{icon}</span>
+      <span className="sr-only"> (opens in a new tab)</span>
+    </a>
+  );
+}
+
+export function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const primaryLink = project.links.demo ?? project.links.github ?? project.links.devpost;
+
+  return (
+    <article className="project-card">
+      <div className="project-image">
+        {project.image && <Image alt={project.imageAlt} fill sizes="(max-width: 800px) 100vw, 25vw" src={project.image} />}
+        <span className="project-image-index">0{index + 1}</span>
+      </div>
+      <div className="project-details">
+        <h3>
+          {primaryLink ? <a href={primaryLink} target="_blank" rel="noreferrer">{project.name}<span aria-hidden="true"> ↗</span></a> : project.name}
+        </h3>
+        <p>{project.description}</p>
+        <div className="project-stack" aria-label="Project technologies">{project.stack.join(" · ")}</div>
+        <div className="project-tags">
+          {(Object.keys(linkLabels) as ProjectLink[]).map((key) => {
+            const href = project.links[key];
+            return href ? <ProjectTag key={key} href={href} {...linkLabels[key]} /> : null;
+          })}
+        </div>
+      </div>
+    </article>
   );
 }
 
 export default function ProjectGrid() {
   return (
-    <div className="project-grid">
-      {(projects as Project[]).map((project) => (
-        <article className="project-card" key={project.id}>
-          {/* Project media */}
-          <div
-            className="project-image"
-            aria-label="Project image placeholder"
-            role="img"
-          >
-            {project.image ? (
-              <Image
-                alt=""
-                fill
-                sizes="(max-width: 720px) 100vw, 220px"
-                src={project.image}
-              />
-            ) : (
-              <ImagePlaceholder />
-            )}
-          </div>
-          {/* Linked title, date, and description */}
-          <div className="project-details">
-            <h3>
-              <a href={project.href}>{project.name} ↗</a>
-            </h3>
-            <p className="project-date">{project.date}</p>
-            <p>{project.description}</p>
-          </div>
-        </article>
-      ))}
+    <div className="project-grid" tabIndex={0} aria-label="Selected projects">
+      {(projects as Project[]).map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
     </div>
   );
 }

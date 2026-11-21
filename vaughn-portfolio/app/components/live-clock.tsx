@@ -1,142 +1,63 @@
+
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import {
-  PORTFOLIO_TIME_ZONE,
-  splitTime,
-  type NormalizedTime,
-} from "@/app/lib/time";
+import { useEffect, useState } from "react";
 
-type ClockState = {
-  now: Date;
-  source: NormalizedTime["source"];
-  diagnostic?: string;
-};
+export default function LiveClock({ initialTime }: { initialTime: string[] | null }) {
+  const [time, setTime] = useState(initialTime);
 
-// Formats the calendar date in Vaughn's Los Angeles time zone.
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
-  timeZone: PORTFOLIO_TIME_ZONE,
-  weekday: "short",
-  month: "short",
-  day: "numeric",
-});
-
-export default function LiveClock() {
-  const [clock, setClock] = useState<ClockState | null>(null);
-
-  // Sync with the server route while keeping a browser-clock fallback.
-  const syncClock = useCallback(async () => {
-    try {
-      const response = await fetch("/api/time", { cache: "no-store" });
-      if (!response.ok) throw new Error(`Clock request failed: ${response.status}`);
-
-      const data = (await response.json()) as NormalizedTime;
-      setClock({
-        now: new Date(data.iso),
-        source: data.source,
-        diagnostic: data.diagnostic,
-      });
-    } catch {
-      setClock({
-        now: new Date(),
-        source: "fallback",
-        diagnostic: "Using browser clock",
-      });
-    }
-  }, []);
-
-  // Show a local value immediately, then refresh it from the API.
   useEffect(() => {
-    const initialSync = window.setTimeout(() => {
-      setClock({
-        now: new Date(),
-        source: "fallback",
-        diagnostic: "Checking time service",
-      });
-      void syncClock();
-    }, 0);
-    const resync = window.setInterval(syncClock, 5 * 60 * 1000);
-    return () => {
-      window.clearTimeout(initialSync);
-      window.clearInterval(resync);
-    };
-  }, [syncClock]);
+    if (!initialTime) return;
 
-  // Advance the displayed clock without requesting the API every second.
-  useEffect(() => {
-    const tick = window.setInterval(() => {
-      setClock((current) => ({
-        ...(current ?? {
-          source: "fallback" as const,
-          diagnostic: "Using browser clock",
-        }),
-        now: current ? new Date(current.now.getTime() + 1000) : new Date(),
-      }));
+    const timer = window.setInterval(() => {
+      setTime((current) => {
+        if (!current) return current;
+        let [hour, minute, second] = current.slice(0, 3).map(Number);
+        let period = current[3];
+
+        second += 1;
+        if (second === 60) {
+          second = 0;
+          minute += 1;
+        }
+        if (minute === 60) {
+          minute = 0;
+          hour += 1;
+          if (hour === 12) period = period === "AM" ? "PM" : "AM";
+          if (hour === 13) hour = 1;
+        }
+
+        return [
+          String(hour),
+          String(minute).padStart(2, "0"),
+          String(second).padStart(2, "0"),
+          period,
+        ];
+      });
     }, 1000);
 
-    return () => window.clearInterval(tick);
-  }, []);
-
-  if (!clock) {
-    return (
-      <section className="clock-card" aria-label="Vaughn's local time">
-        {/* Clock label */}
-        <div className="clock-heading">
-          <span className="status-dot" aria-hidden="true" />
-          <span>Local time</span>
-          <span className="clock-zone">PT</span>
-        </div>
-        {/* Initial time placeholder */}
-        <p className="clock-time" aria-live="off">
-          <span>--</span>
-          <span className="clock-colon">:</span>
-          <span>--</span>
-        </p>
-        {/* Time-zone metadata */}
-        <div className="clock-meta">
-          <span>Los Angeles</span>
-          <span>Local clock</span>
-        </div>
-        {/* Contact details */}
-        <div className="clock-contact">
-          <span>Contact</span>
-          <a href="mailto:Vaughnalston383@gmail.com">Vaughnalston383@gmail.com</a>
-        </div>
-      </section>
-    );
-  }
-
-  const { timeArray, values } = splitTime(clock.now);
+    return () => window.clearInterval(timer);
+  }, [initialTime]);
 
   return (
     <section className="clock-card" aria-label="Vaughn's local time">
-      {/* Clock label */}
-      <div className="clock-heading">
-        <span className="status-dot" aria-hidden="true" />
-        <span>Local time</span>
-        <span className="clock-zone">PT</span>
+      <div className="clock-result">
+        <div>
+          <span className="clock-label">Local time</span>
+          <p className="clock-time" aria-live="off">
+            <span>{time?.[0] ?? "--"}</span>
+            <span className="clock-colon">:</span>
+            <span>{time?.[1] ?? "--"}</span>
+            <span className="clock-seconds">:{time?.[2] ?? "--"}</span>
+            <span className="clock-period">{time?.[3]}</span>
+          </p>
+        </div>
+        <div className="clock-place">
+          <span className="status-dot" aria-hidden="true" />
+          <span>Los Angeles,<br />California</span>
+        </div>
       </div>
-      {/* Live 12-hour time */}
-      <p className="clock-time" aria-live="off">
-        <span>{values.hour}</span>
-        <span className="clock-colon">:</span>
-        <span>{values.minute}</span>
-        <span className="clock-seconds">:{values.second}</span>
-        <span className="clock-period">{values.period}</span>
-      </p>
-      {/* Date and API status */}
-      <div className="clock-meta">
-        <span>{dateFormatter.format(clock.now)}</span>
-        <span title={clock.diagnostic}>
-          {clock.source === "api" ? "API synced" : "Local fallback"}
-        </span>
-      </div>
-      {/* Contact details */}
-      <div className="clock-contact">
-        <span>Contact</span>
-        <a href="mailto:Vaughnalston383@gmail.com">Vaughnalston383@gmail.com</a>
-      </div>
-      <span className="sr-only">Time values: {timeArray.join(", ")}</span>
+      {!time && <p className="clock-error">Time unavailable — refresh to retry</p>}
     </section>
   );
 }
