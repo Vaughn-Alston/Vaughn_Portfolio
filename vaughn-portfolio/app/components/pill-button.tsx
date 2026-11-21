@@ -1,0 +1,1 @@
+export default function PillButton({ href, children, external = false }: { href: string; children: React.ReactNode; external?: boolean }) { return <a className="pill-button" href={href} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}>{children}<span aria-hidden="true">↗</span></a>; }
