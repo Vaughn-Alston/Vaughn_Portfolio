@@ -1,109 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vaughn Alston Portfolio
 
-## Time API setup
+A minimal, responsive developer portfolio built to present Vaughn’s profile, technical toolkit, and selected projects in a recruiter-friendly one-page experience.
 
-The timezone token stays on the server and is never sent to the browser.
+## Core features
 
-1. Copy `.env.example` to `.env.local` (a ready-to-fill `.env.local` is also included in this working copy).
-2. Paste the token after `TIMEZONE_API_TOKEN=` with no extra spaces.
-3. Restart the development server whenever `.env.local` changes.
+- Fixed profile panel with portrait, role, availability, email, social links, résumé access, and copyright.
+- Live Los Angeles time fetched securely on the server through the timezone.io API.
+- Mission statement and full-stack expertise organized into Backend, Frontend, Cloud, Mobile, and Tools categories.
+- Reusable technology cards driven by structured content data.
+- Full-width project rows with images, descriptions, technology stacks, and external project links.
+- Independently scrollable project workspace on larger screens.
+- Responsive layouts for desktop, laptop, tablet, phone, and compact-phone widths.
+- Accessible navigation, focus states, image descriptions, and reduced-motion support.
+- Centralized profile, contact, social, résumé, and project content for straightforward updates.
 
-The portfolio calls `/api/time`, which reads `data.current.datetime` from timezone.io and returns both a `timeArray` (`[hour, minute, second, period]`) and named `values`. If the token is missing, expired, or the provider is unavailable, the clock continues using the browser time formatted for `America/Los_Angeles`.
+## Responsive breakpoints
 
-## Getting Started
+| Layout | Width |
+| --- | --- |
+| Desktop | `1440px` and wider |
+| Laptop | `1024px–1439px` |
+| Tablet | `768px–1023px` |
+| Phone | Below `768px` |
+| Compact phone | Below `480px` |
 
-First, run the development server:
+Desktop, laptop, and tablet use the split profile/workspace presentation. Phones switch to a vertically stacked page.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Editing portfolio content
+
+- Profile, email, social links, social icon paths, and résumé path: `app/content/site.ts`
+- Expertise categories and technology icons: `app/content/proof.ts`
+- Project data, images, stacks, and links: `app/Project_Experience/projects.json`
+- Main page structure: `app/page.tsx`
+- Design tokens and responsive styling: `app/globals.css`
+- Public images and icons: `public/images` and `public/icons`
+
+### Adding the résumé
+
+The résumé button currently links to `/resume.pdf`. Add the final document here:
+
+```text
+public/resume.pdf
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To use a different filename or external URL, update `site.resume.href` in `app/content/site.ts`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Local-time API setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The timezone API token is used only by the server and is never exposed to the browser.
 
-## Learn More
+1. Copy `.env.example` to `.env.local`.
+2. Add the timezone.io token after `TIMEZONE_API_TOKEN=`.
+3. Restart the development server after changing the environment file.
 
-To learn more about Next.js, take a look at the following resources:
+If the API is unavailable or the token is missing, the clock displays an unavailable state instead of exposing credentials or failing the page.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Development
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Install dependencies and start the development server:
 
-## Deploy on Vercel
+```bash
+npm install
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open [http://localhost:3000](http://localhost:3000).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Useful commands:
 
+```bash
+npm run lint
+npm run build
+npm run start
+```
 
-#Design direction: minimal • technical • editorial • quietly distinctive
+## Technology
 
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Geist typography
 
-Portfolio goal and recruiter journey
-This is not meant to be a complete archive of every skill or experience. It is a curated proof-of-work product designed around fast comprehension and strong evidence.
+## Design direction
 
-Primary audience
------------------------------
-Recruiters, engineering managers, mentors, hackathon contacts, collaborators, and people who meet you in person.
-
-Primary entry points
-------------------------------
-LinkedIn profile/posts, résumé links, direct domain, physical networking card, and QR code.
-
-Core message
-“I make it work.” Short language should communicate full-stack range without hiding behind jargon.
-
-First-impression goal
-Within 5–10 seconds: name, role, what you build, strongest proof, and the next action.
-
-
-The site should remove guessing. A recruiter can scan broadly, or quickly filter projects by Frontend, Backend, and Full Stack depending on the role they are hiring for.
-
-One-page structure
-The portfolio remains a one-page experience, but each section has a clear responsibility. A subtle live section indicator keeps orientation while preserving the minimal style.
-
-
-Sticky profile identity
-Compact profile card inspired by the logged-in identity pattern: avatar, Vaughn Alston, role, location, and local time.
-
-
-Local time updates live in the browser and gives remote recruiters immediate context.
-
-
-The card can remain sticky on larger screens and collapse into the header on mobile.
-
-Keep location broad and professional; avoid displaying unnecessary precise location information.
-Active section indicator
-
-Use a minimal visual indicator rather than a loud navigation bar: one active dot or short underline changes as the user scrolls. The user should always understand where they are without the interface calling attention to itself.
-
-
-Hero.  Identify role and value immediately. Short statement + primary CTA
-
-Projects.  Show strongest technical work.   Screenshots, stack, contribution, demo
-
-Experience.  Provide context without dominating the page.  Selected roles / programs / impact
-
-Current work.  Show momentum and learning.   ThatBit, system design, active builds
-
-Videos.   Prove the work quickly.   Short walkthroughs / demos
-
-Skills.   Organize technical range.   Frontend / Backend / Tools & Cloud
-
-Testimonials.   Add trusted third-party context.    Mentor / collaborator recommendations
-
-
-Contact.    Make follow-up effortless.  Email, LinkedIn, GitHub, résumé
-
-
-
+Minimal, technical, editorial, and quietly distinctive. The interface prioritizes fast comprehension, clear proof of work, and direct contact actions without unnecessary visual noise.
