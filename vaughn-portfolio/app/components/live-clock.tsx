@@ -43,7 +43,7 @@ export default function LiveClock({ initialTime }: { initialTime: string[] | nul
     <section className="clock-card" aria-label="Vaughn's local time">
       <div className="clock-result">
         <div>
-          <span className="clock-label">Local time</span>
+          <span className="clock-label">Los Angeles, California</span>
           <p className="clock-time" aria-live="off">
             <span>{time?.[0] ?? "--"}</span>
             <span className="clock-colon">:</span>
@@ -51,10 +51,6 @@ export default function LiveClock({ initialTime }: { initialTime: string[] | nul
             <span className="clock-seconds">:{time?.[2] ?? "--"}</span>
             <span className="clock-period">{time?.[3]}</span>
           </p>
-        </div>
-        <div className="clock-place">
-          <span className="status-dot" aria-hidden="true" />
-          <span>Los Angeles,<br />California</span>
         </div>
       </div>
       {!time && <p className="clock-error">Time unavailable — refresh to retry</p>}
