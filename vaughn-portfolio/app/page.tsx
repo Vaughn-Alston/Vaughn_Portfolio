@@ -7,18 +7,6 @@ import ProjectGrid from "@/app/components/project-grid";
 import { proofCategories } from "@/app/content/proof";
 import { site } from "@/app/content/site";
 
-const socialIcons: Record<string, React.ReactNode> = {
-  LinkedIn: (
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.25H3.25V21H6.5V8.25ZM4.88 3A1.88 1.88 0 1 0 4.88 6.75 1.88 1.88 0 0 0 4.88 3ZM21 13.68c0-3.84-2.05-5.63-4.79-5.63a4.14 4.14 0 0 0-3.74 2.05V8.25H9.22V21h3.25v-6.31c0-1.66.31-3.27 2.37-3.27 2.03 0 2.05 1.9 2.05 3.38V21H21v-7.32Z" /></svg>
-  ),
-  GitHub: (
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.74 9.74 0 0 0-3.08 18.98c.49.09.67-.21.67-.47v-1.7c-2.73.59-3.3-1.16-3.3-1.16-.45-1.14-1.09-1.44-1.09-1.44-.89-.61.07-.6.07-.6.98.07 1.5 1.01 1.5 1.01.88 1.5 2.3 1.07 2.86.82.09-.63.34-1.07.62-1.32-2.18-.25-4.47-1.09-4.47-4.82 0-1.07.38-1.94 1-2.62-.1-.25-.43-1.24.1-2.58 0 0 .82-.26 2.68 1a9.26 9.26 0 0 1 4.88 0c1.86-1.26 2.67-1 2.67-1 .54 1.34.2 2.33.1 2.58.63.68 1.01 1.55 1.01 2.62 0 3.75-2.3 4.57-4.48 4.81.35.31.66.91.66 1.83v2.71c0 .26.18.57.67.47A9.75 9.75 0 0 0 12 2.5Z" /></svg>
-  ),
-  Devpost: (
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.2 3-4.7 9 4.7 9h11.6l4.7-9-4.7-9H6.2Zm3.02 4.8h3.38c2.7 0 4.62 1.62 4.62 4.2s-1.92 4.2-4.62 4.2H9.22V7.8Zm2.26 2v4.4h1.02c1.46 0 2.4-.75 2.4-2.2s-.94-2.2-2.4-2.2h-1.02Z" /></svg>
-  ),
-};
-
 export default function Home() {
   return (
     <main className="portfolio-shell" id="top">
@@ -53,11 +41,17 @@ export default function Home() {
         <nav className="social-links" aria-label="Social links">
           {site.socials.map((social) => (
             <a key={social.label} href={social.href} target="_blank" rel="noreferrer" aria-label={`${social.label}, opens in a new tab`}>
-              {socialIcons[social.label]}
+              <Image src={social.icon} width={18} height={18} alt="" aria-hidden="true" />
               <span>{social.label}</span>
             </a>
           ))}
         </nav>
+
+        <a className="resume-link" href={site.resume.href} target="_blank" rel="noreferrer" aria-label="Open Vaughn's resume in a new tab">
+          <Image src={site.resume.icon} width={202} height={47} alt="Resume download" />
+        </a>
+
+        <p className="profile-copyright">Copyright © Vaughn Alston</p>
       </aside>
 
       <section className="work-panel" aria-label="Portfolio work">
@@ -76,7 +70,6 @@ export default function Home() {
         <section className="expertise" id="expertise" aria-labelledby="expertise-title">
           <div className="section-title-row">
             <h3 id="expertise-title">What I build with</h3>
-            <span>01 / EXPERTISE</span>
           </div>
           <div className="proof-grid">
             {proofCategories.map((item, index) => <ProofCard key={item.title} item={item} index={index} />)}
@@ -86,7 +79,6 @@ export default function Home() {
         <section className="projects" id="projects" aria-labelledby="projects-title">
           <div className="section-title-row">
             <div>
-              <span>02 / SELECTED WORK</span>
               <h3 id="projects-title">Projects made with purpose.</h3>
             </div>
             <p>Scroll to see more <span aria-hidden="true">↓</span></p>
