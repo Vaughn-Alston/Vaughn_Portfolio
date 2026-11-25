@@ -2,16 +2,16 @@ import Image from "next/image";
 import { Suspense } from "react";
 import LiveClock from "@/app/components/live-clock";
 import LocalTime from "@/app/components/local-time";
-import ProofCard from "@/app/components/proof-card";
 import ProjectGrid from "@/app/components/project-grid";
-import { proofCategories } from "@/app/content/proof";
+import TechIcon from "@/app/components/tech-icon";
+import { technologies } from "@/app/content/proof";
 import { site } from "@/app/content/site";
 
 export default function Home() {
   return (
     <main className="portfolio-shell" id="top">
       <aside className="profile-rail" aria-label="Profile and contact information">
-        <a className="wordmark" href="#top" aria-label={`${site.name}, home`}>VA<span>✳</span></a>
+        <a className="wordmark" href="#top" aria-label={`${site.name}, home`}>VAUGHN<span>✳</span></a>
 
         <div className="profile-picture">
           <Image src="/images/Profile.svg" alt={`Portrait of ${site.name}`} fill priority sizes="260px" />
@@ -41,14 +41,20 @@ export default function Home() {
         <nav className="social-links" aria-label="Social links">
           {site.socials.map((social) => (
             <a key={social.label} href={social.href} target="_blank" rel="noreferrer" aria-label={`${social.label}, opens in a new tab`}>
-              <Image src={social.icon} width={18} height={18} alt="" aria-hidden="true" />
+              <Image
+                src={social.image || `/icons/${social.label === "GitHub" ? "github-social" : social.label.toLowerCase()}.svg`}
+                width={18}
+                height={18}
+                alt=""
+                aria-hidden="true"
+              />
               <span>{social.label}</span>
             </a>
           ))}
         </nav>
 
-        <a className="resume-link" href={site.resume.href} target="_blank" rel="noreferrer" aria-label="Open Vaughn's resume in a new tab">
-          <Image src={site.resume.icon} width={202} height={47} alt="Resume download" />
+        <a className="resume-link" href="/icons/Resume.svg" download aria-label="Download Vaughn's resume">
+          <Image src="/icons/Resume.svg" width={202} height={47} alt="Resume download" />
         </a>
 
         <p className="profile-copyright">Copyright © Vaughn Alston</p>
@@ -58,7 +64,13 @@ export default function Home() {
         <header className="panel-header">
           <a href="#expertise">Expertise</a>
           <a href="#projects">Projects</a>
-          <a className="panel-contact" href={site.email}>Let’s work together <span aria-hidden="true">↗</span></a>
+          <a href="/work-experience">Work Experience</a>
+          <a
+            className="panel-contact"
+            href={site.socials.find((social) => social.label === "LinkedIn")?.href}
+          >
+            Let’s work together <span aria-hidden="true">↗</span>
+          </a>
         </header>
 
         <div className="mission">
@@ -67,12 +79,14 @@ export default function Home() {
           <p className="mission-copy">{site.intro}</p>
         </div>
 
-        <section className="expertise" id="expertise" aria-labelledby="expertise-title">
-          <div className="section-title-row">
-            <h3 id="expertise-title">What I build with</h3>
-          </div>
-          <div className="proof-grid">
-            {proofCategories.map((item, index) => <ProofCard key={item.title} item={item} index={index} />)}
+        <section className="expertise" id="expertise" aria-label="Skills">
+          <h3 className="skills-title">Skills</h3>
+          <div className="skills-frame">
+            <div className="technology-container">
+              {technologies.map((technology) => (
+                <TechIcon key={technology.name} technology={technology} />
+              ))}
+            </div>
           </div>
         </section>
 

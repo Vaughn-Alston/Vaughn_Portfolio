@@ -1,39 +1,27 @@
-export type Technology = { name: string; src: string; alt: string };
+
+// TODO(AI) rename proof and any file that pulls from it SkillsButtons
+
+
+export type Technology = {
+  name: string;
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+};
 export type ProofCategory = { title: string; description: string; technologies: Technology[] };
 
-export const proofCategories: ProofCategory[] = [
-  {
-    title: "Backend",
-    description: "APIs and systems that keep products moving.",
-    technologies: [
-      { name: "JavaScript", src: "/icons/javascript.svg", alt: "JavaScript logo" },
-      { name: "TypeScript", src: "/icons/typescript.svg", alt: "TypeScript logo" },
-    ],
-  },
-  {
-    title: "Frontend",
-    description: "Thoughtful, accessible interfaces for the web.",
-    technologies: [
-      { name: "React", src: "/icons/react.svg", alt: "React logo" },
-      { name: "Next.js", src: "/icons/nextjs.svg", alt: "Next.js logo" },
-    ],
-  },
-  {
-    title: "Cloud",
-    description: "Scalable foundations for connected products.",
-    technologies: [{ name: "Cloud", src: "/icons/cloud.svg", alt: "Cloud infrastructure icon" }],
-  },
-  {
-    title: "Mobile",
-    description: "Useful experiences that travel with the user.",
-    technologies: [{ name: "Expo", src: "/icons/expo.svg", alt: "Expo logo" }],
-  },
-  {
-    title: "Tools",
-    description: "A pragmatic toolkit for shipping reliable work.",
-    technologies: [
-      { name: "TypeScript", src: "/icons/typescript.svg", alt: "TypeScript logo" },
-      { name: "GitHub", src: "/images/github.jpg", alt: "GitHub logo" },
-    ],
-  },
+
+
+
+// Here is the Array of types that will display inside of my skills
+
+export const technologies: Technology[] = [
+  { name: "JavaScript", src: "/icons/javascript.svg", alt: "JavaScript logo", width: 145, height: 47 },
+  { name: "TypeScript", src: "/icons/typescript.svg", alt: "TypeScript logo", width: 145, height: 47 },
+  { name: "React", src: "/icons/react.svg", alt: "React logo", width: 152, height: 145 },
+  { name: "Next.js", src: "/icons/nextjs.svg", alt: "Next.js logo", width: 99, height: 47 },
+  { name: "LLM Integration", src: "/icons/llmintegrate.svg", alt: "LLM integration skill", width: 203, height: 47 },
+  { name: "Reward Based", src: "/icons/rewardbased.svg", alt: "Reward-based systems skill", width: 243, height: 47 },
+  { name: "Expo", src: "/icons/expo.svg", alt: "Expo logo" },
 ];
