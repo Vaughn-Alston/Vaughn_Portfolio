@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Impacts",
     "description": "A project focused on creating meaningful impact.",
-    "image": "/images/Impact.png",
+    "image": ["/images/Impact.png"],
     "originalDescription": "Add a concise description of the problem, your contribution, and the result.",
     "imageAlt": "Impacts project visual",
     "stack": [
@@ -13,7 +13,7 @@
     "links": {
       "demo": null,
       "github": null,
-      "architecture": null,
+     "architecture": null,
       "devpost": null
     }
   },
@@ -21,7 +21,7 @@
     "id": 2,
     "name": "Star Gazing",
     "description": "An exploration of the night sky through an interactive star catalog.",
-    "image": "/images/Project2.png",
+    "image": ["/images/Project2.png"],
     "originalDescription": "Add a concise description of the problem, your contribution, and the result.",
     "imageAlt": "Star Gazing project visual",
     "stack": [
@@ -39,7 +39,7 @@
     "id": 3,
     "name": "Ripple Effect",
     "description": "An idea built around the ripple effect of making a difference.",
-    "image": "/images/THERIPPLE.png",
+    "image": ["/images/THERIPPLE.png"],
     "originalDescription": "Add a concise description of the problem, your contribution, and the result.",
     "imageAlt": "Ripple Effect project visual",
     "stack": [
@@ -57,7 +57,7 @@
     "id": 4,
     "name": "ThatBit",
     "description": "The Expo mobile app currently lets a user attach a design document. The backend parser reads Markdown phase headings and task bullets into shared TypeScript data. AI, GitHub, databases, authentication, and agent workflows are future work and are intentionally not part of this reorganization.",
-    "image": "/images/Project.png",
+    "image": ["/images/ThatBit.mp4", "/images/Project.png", "/icons/Spidify.svg"],
     "originalDescription": "The Expo mobile app currently lets a user attach a design document. The backend parser reads Markdown phase headings and task bullets into shared TypeScript data. AI, GitHub, databases, authentication, and agent workflows are future work and are intentionally not part of this reorganization.",
     "imageAlt": "ThatBit project visual",
     "stack": [

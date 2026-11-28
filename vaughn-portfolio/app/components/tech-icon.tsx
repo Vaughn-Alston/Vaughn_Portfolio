@@ -1,11 +1,20 @@
 import Image from "next/image";
 import type { Technology } from "@/app/content/proof";
-
+//TODO for the tech-ICON file  I want to rename this to be SkillsButtonsBox for readablity
 export default function TechIcon({ technology }: { technology: Technology }) {
+
   return (
-    <span className="tech-icon" title={technology.name}>
-      <Image src={technology.src} width={24} height={24} alt={technology.alt} />
-      <span>{technology.name}</span>
-    </span>
+
+    // These will reflect the boxes that will go into the skills, 
+    // Reuseable boxes that pull types
+
+    <Image
+      className="technology-image"
+      src={technology.src}
+      width={technology.width ?? 40}
+      height={technology.height ?? 40}
+      alt={technology.alt}
+      title={technology.name}
+    />
   );
 }

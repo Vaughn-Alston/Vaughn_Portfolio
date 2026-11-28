@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import projects from "@/app/Project_Experience/projects.json";
 
 type ProjectLink = "demo" | "github" | "architecture" | "devpost";
@@ -6,7 +9,7 @@ type Project = {
   id: number;
   name: string;
   description: string;
-  image: string | null;
+  image: string | string[] | null;
   imageAlt: string;
   stack: string[];
   links: Record<ProjectLink, string | null>;
@@ -30,12 +33,23 @@ export function ProjectTag({ href, label, icon }: { href: string; label: string;
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
   const primaryLink = project.links.demo ?? project.links.github ?? project.links.devpost;
+  const images = Array.isArray(project.image) ? project.image : project.image ? [project.image] : [];
+  const [imageIndex, setImageIndex] = useState(0);
 
   return (
     <article className="project-card">
       <div className="project-image">
-        {project.image && <Image alt={project.imageAlt} fill sizes="(max-width: 800px) 100vw, 25vw" src={project.image} />}
+        {images.length > 0 && (images[imageIndex].endsWith(".mp4") ? (
+          <video src={images[imageIndex]} aria-label={project.imageAlt} autoPlay loop muted playsInline preload="metadata" />
+        ) : (
+          <Image alt={project.imageAlt} fill loading="lazy" sizes="(max-width: 800px) 100vw, 25vw" src={images[imageIndex]} />
+        ))}
         <span className="project-image-index">0{index + 1}</span>
+        {images.length > 1 && <div className="project-image-controls" aria-label={`${project.name} screenshots`}>
+          <button type="button" aria-label="Previous image" onClick={() => setImageIndex((current) => (current - 1 + images.length) % images.length)}>‹</button>
+          <span>{imageIndex + 1} / {images.length}</span>
+          <button type="button" aria-label="Next image" onClick={() => setImageIndex((current) => (current + 1) % images.length)}>›</button>
+        </div>}
       </div>
       <div className="project-details">
         <h3>
